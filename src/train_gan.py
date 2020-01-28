@@ -1,5 +1,5 @@
 import numpy as np
-from src.gan_utils import TrainBatchFetcher, imgs2discr, imgs2gan, get_data
+from gan_utils import TrainBatchFetcher, imgs2discr, imgs2gan, get_data
 import os
 from os.path import join
 from model_gan import get_discriminator, get_gan, compile_unet

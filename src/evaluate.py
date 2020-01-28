@@ -71,6 +71,7 @@ def compute_dice_coef_gen(num, params):
     lab_name = labels[num-1][:-1]
     dice_total = 0.0
     gt_test = [f for f in listdir(test_path + 'full_labels/') if isfile(join(test_path + 'full_labels/', f))]
+    print(gt_test)
     gt_aux = imread(test_path + 'full_labels/' + gt_test[0])
 
     for file in gt_test:
