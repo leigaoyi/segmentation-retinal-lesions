@@ -1,4 +1,9 @@
-## Retinal lesions segmentation using CNNs and adversarial training
+## Attention based retinal lesions segmentation
+Fork from [nataliagullon/segmentation-retinal-lesions]
+
+Works on the attention mechanism, and the codes are placed in the [codes] dir.
+
+### Retinal lesions segmentation using CNNs and adversarial training
 
 A Degree Thesis Submitted to the Faculty of Escola Tècnica d’Enginyeria de Telecomunicació de Barcelona of Universitat Politècnica de Catalunya in July 2018. In partial fulfilment of the requirements for the degree in Telecommunications Technologies and Services Engineering. 
 
