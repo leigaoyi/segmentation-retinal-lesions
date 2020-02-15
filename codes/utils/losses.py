@@ -9,6 +9,10 @@ def generalised_dice_coef(y_true, y_pred, type_weight='Square'):
     :param y_pred: predicted labels
     :return: generalised dice coefficient score between y_true and y_pred
     """
+#    print('Y true ** ', y_true.shape)
+#    print('Pred shape : ', y_pred.shape)
+#    print('Pred max :', tf.reduce_max(y_pred))
+#    print('True max :', tf.reduce_max(y_true))
     prediction = tf.cast(y_pred, tf.float32)
 
     ref_vol = tf.reduce_sum(y_true, axis=0)
@@ -77,14 +81,6 @@ def seg_loss(y_true, y_pred, loss_weight_divisor=None):
     weighted_binary_crossentropy = -K.mean(y_true_flat * K.log(y_pred_flat) * weight0 / (weight1 * loss_weight_divisor)
                                            + (1 - y_true_flat) * K.log(1 - y_pred_flat), axis=-1)
     return weighted_binary_crossentropy
-
-
-
-
-
-
-
-
 
 
 

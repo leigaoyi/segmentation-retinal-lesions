@@ -6,8 +6,7 @@ Created on Thu Feb 13 17:10:02 2020
 """
 
 TF = False
-
-from se_utils import _tensor_shape
+from .SE_utils import _tensor_shape
 
 if TF:
     from tensorflow.keras.layers import GlobalAveragePooling2D, Reshape, Dense, multiply, add, Permute, Conv2D

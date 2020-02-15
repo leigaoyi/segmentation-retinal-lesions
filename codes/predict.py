@@ -32,6 +32,8 @@ def predict(**params):
         **params
     )
     
+    model_name = params['model_name']
+    print('Predicting ', model_name)
     #ckpt_name = params['ckpt_name']
 
     verbose = params['verbose']
@@ -45,14 +47,20 @@ def predict(**params):
     color_code_labels = params['color_code_labels']
 
     model = ''
-    if model_name == 'unet':
+    if model_name == 'UNet':
         model = get_unet(patch_size, patch_size, channels, n_classes)
         
-    if model_name == 'att_unet':
+    if model_name == 'Att_UNet':
         model = get_attention(patch_size, patch_size, channels, n_classes)
         
-    if model_name == 'se_res_unet':    
-        model = build_res_model(patch_size, patch_size, channels, n_classes)
+    if model_name == 'SE_Res_UNet':    
+        model = build_se_res_unet(patch_size, patch_size, channels, n_classes)
+    
+    if model_name == 'SC_UNet': #spatial-channel attention UNet
+        model = get_SEUNet(patch_size, patch_size, channels, n_classes)
+        
+    if model_name == 'BAM_UNet': # bottleneck attention UNet
+        model = get_BAM_UNet(patch_size, patch_size, channels, n_classes)
                    
     assert model != ''
 
@@ -64,7 +72,7 @@ def predict(**params):
     if verbose:
         print("Loading weights...")
 
-    name_weights = params['weights']
+    name_weights = params['restore_weights']
     if not name_weights.endswith('.h5'):
         name_weights = name_weights + '.h5'
 
@@ -155,9 +163,9 @@ def predict(**params):
     if verbose:
         print("Prediction done")
 
-    file = path_predicted + 'evalutation_' + params['weights'] + '.txt'
+    file = path_predicted + 'evalutation_' + params['restore_weights'] + '.txt'
     f = open(file, "a+")
-    f.write('\nAUC Precision-Recall for weights ' + params['weights'] + '\n')
+    f.write('\nAUC Precision-Recall for weights ' + params['restore_weights'] + '\n')
 
     # log AUC PR
     auc_ex = AUC_PR(gt_ex, pred_ex)

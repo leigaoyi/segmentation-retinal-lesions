@@ -1,6 +1,10 @@
 import argparse
 
 default_params = {
+    'model_name' : 'BAM_UNet',
+    'ckpt_name' : 'BAM_UNet_v1',
+    'restore_weights': 'BAM_UNet_v1',
+    'epoch' : 100,
     'data_path': 'data/',
     'images_path': 'data/images/',
     'gt_path': 'data/ground_truths/',
@@ -28,7 +32,7 @@ default_params = {
 }
 
 
-def parse_arguments():
+def parse_arguments_model():
     """
     Set arguments from the command line when running 'run.py'. Run with option '-h' or '--help' for
     information about parameters and its usage.
@@ -70,7 +74,7 @@ def parse_arguments_pred():
 
     required_arg = parser.add_argument_group('required arguments')
     required_arg.add_argument(
-        '-weights', dest='weights', help='name of the weights to use in the prediction', required=True
+        '-weights', dest='weights', help='name of the weights to use in the prediction', required=False
     )
 
     parser.set_defaults(**default_params)

@@ -35,7 +35,7 @@ def train_model_generator(**params):
     epoch_num = params['epoch']
     
     if verbose:
-        print("Welcome to U-Net training")
+        print("Welcome to {0} training".format(model_name))
 ##==============================================================================
 ##=====================output tensorboard name =================================
     out_path = join(path_to_data, params['weights_path'] + ckpt_name)
@@ -53,16 +53,21 @@ def train_model_generator(**params):
     n_classes = params['n_classes']
     #model = pspnet50(patch_size, patch_size, channels, n_classes)
     model = ''
-    if model_name == 'unet':
+    if model_name == 'UNet':
         model = get_unet(patch_size, patch_size, channels, n_classes)
         
-    if model_name == 'att_unet':
+    if model_name == 'Att_UNet':
         model = get_attention(patch_size, patch_size, channels, n_classes)
         
-    if model_name == 'se_res_unet':    
-        model = build_res_model(patch_size, patch_size, channels, n_classes)
+    if model_name == 'SE_Res_UNet':    
+        model = build_se_res_unet(patch_size, patch_size, channels, n_classes)
+    
+    if model_name == 'SC_UNet': #spatial-channel attention UNet
+        model = get_SEUNet(patch_size, patch_size, channels, n_classes)
         
-            
+    if model_name == 'BAM_UNet': # bottleneck attention UNet
+        model = get_BAM_UNet(patch_size, patch_size, channels, n_classes)
+                   
     assert model != ''
 
     metrics = [generalised_dice_coef]
@@ -91,7 +96,7 @@ def train_model_generator(**params):
         print("Training model...")
 
     weights_path = join(path_to_data, params['weights_path'])
-    best_weights = join(weights_path, params['weights'] + '.h5')
+    best_weights = join(weights_path, params['ckpt_name'] + '.h5')
 
     #model_checkpoint = ModelCheckpoint(best_weights, verbose=1, monitor='val_loss', save_best_only=True)
     model_checkpoint = ModelCheckpoint(best_weights, verbose=1, monitor='loss', mode='min',save_best_only=True)
